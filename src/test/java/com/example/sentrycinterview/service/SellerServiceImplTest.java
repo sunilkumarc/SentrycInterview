@@ -38,7 +38,6 @@ class SellerServiceImplTest {
 
     @BeforeEach
     void setUp() {
-//        MockitoAnnotations.openMocks(this);
         sellerInfoRepository = mock(SellerInfoRepository.class);
     }
 

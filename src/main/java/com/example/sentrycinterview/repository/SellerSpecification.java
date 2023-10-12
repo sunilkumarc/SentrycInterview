@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 public class SellerSpecification {
 
     public static Specification<Seller> filterSellers(UUID sellerInfoId, List<String> producerIds) {
+        // Dynamically build the query for sellerInfoId and producerIds
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 

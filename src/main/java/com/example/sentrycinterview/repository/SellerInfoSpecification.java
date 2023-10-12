@@ -11,6 +11,7 @@ public class SellerInfoSpecification {
 
     public static Specification<SellerInfo> filterSellerInfos(String sellerInfoName,
         List<String> marketPlaceIds) {
+        // Dynamically build the query for filtering sellerinfo by name and marketplace ids
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 

@@ -41,10 +41,14 @@ public class SellerServiceImpl implements SellerService {
             filterRequest.getSortDirection() != null ? filterRequest.getSortDirection() : "";
         SellerSortBy sellerSortBy = CommonUtils.getSortFieldAndDirection(sortBy);
 
+        // Logic for pagination
         PageRequest pageRequest = PageRequest.of(filterRequest.getPage() - 1,
             filterRequest.getSize(),
             Sort.by(sellerSortBy.getDirection(), sellerSortBy.getFieldName()));
 
+        // SellerInfoSpecification provides a way for dynamic filtering
+        // In the future we can add more filters by just adding more filters
+        // inside filterSellerInfos method
         Page<SellerInfo> sellerInfos = sellerInfoRepository.findAll(
             SellerInfoSpecification.filterSellerInfos(filterRequest.getSellerName(),
                 filterRequest.getMarketplaceIds()),
@@ -73,10 +77,12 @@ public class SellerServiceImpl implements SellerService {
     private SellerDTO convertToSellerDTO(SellerInfo sellerInfo, List<String> producerIds) {
         SellerDTO sellerDTO = new SellerDTO(sellerInfo.getName(), sellerInfo.getExternalId(),
             sellerInfo.getMarketplace().getId());
+        // Fetch all the sellers for the corresponding seller info
         List<Seller> sellers = sellerRepository.findAll(
             SellerSpecification.filterSellers(sellerInfo.getId(), producerIds)
         );
 
+        // Prepare ProducerSellerStateDTO object for each sellers
         List<ProducerSellerStateDTO> producerSellerStateDTOs = sellers.stream()
             .map(CommonUtils::convertToProducerSellerStateDTO)
             .collect(Collectors.toList());
