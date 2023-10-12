@@ -13,6 +13,7 @@ import com.example.sentrycinterview.repository.SellerInfoSpecification;
 import com.example.sentrycinterview.repository.SellerRepository;
 import com.example.sentrycinterview.repository.SellerSpecification;
 import com.example.sentrycinterview.utils.CommonUtils;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,12 +51,22 @@ public class SellerServiceImpl implements SellerService {
             pageRequest
         );
 
-        List<SellerDTO> sellerDTOs = sellerInfos.stream()
-            .map(sellerInfo -> convertToSellerDTO(sellerInfo, filterRequest.getProducerIds()))
-            .collect(Collectors.toList());
+        List<SellerDTO> sellerDTOs;
+        boolean sellerInfosEmpty = sellerInfos != null ? sellerInfos.getTotalElements() == 0 : true;
+        if (!sellerInfosEmpty) {
+            sellerDTOs = sellerInfos.stream()
+                .map(sellerInfo -> convertToSellerDTO(sellerInfo, filterRequest.getProducerIds()))
+                .collect(Collectors.toList());
+        } else {
+            sellerDTOs = Collections.emptyList();
+        }
 
-        MetaDTO meta = new MetaDTO(sellerInfos.getNumber() + 1, sellerInfos.getSize(),
-            (int) sellerInfos.getTotalElements());
+        MetaDTO meta = new MetaDTO(
+            !sellerInfosEmpty ? sellerInfos.getNumber() + 1 : 1,
+            !sellerInfosEmpty ? sellerInfos.getSize() : 0,
+            !sellerInfosEmpty ? (int) sellerInfos.getTotalElements() : 0
+        );
+
         return new SellerResponseDTO(meta, sellerDTOs);
     }
 

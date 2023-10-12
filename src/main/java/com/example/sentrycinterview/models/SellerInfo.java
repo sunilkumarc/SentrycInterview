@@ -31,6 +31,9 @@ public class SellerInfo {
 
     // Constructors, getters, and setters
 
+    public SellerInfo() {
+    }
+
     public UUID getId() {
         return id;
     }

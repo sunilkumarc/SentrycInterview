@@ -38,6 +38,7 @@ public class SellerController {
             throw new BadRequestException(
                 "Invalid page number. Page number must be greater than or equal to 1.");
         }
+        // Let's allow getting only 100 entries at a time for now
         if (size == null || (size < 1 || size > 100)) {
             throw new BadRequestException(
                 "Invalid page size. Page size must be between 1 and 100.");
