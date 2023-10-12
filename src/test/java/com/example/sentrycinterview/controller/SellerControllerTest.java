@@ -49,12 +49,6 @@ class SellerControllerTest {
 
     @Test
     void testGetSellersWithValidRequest() {
-        // Arrange
-//        FilterRequest filterRequest = new FilterRequest("sellerName", Collections.singletonList("prodId"),
-//            Collections.singletonList("marketId"), "asc", 1, 10);
-//
-//        SellerResponseDTO expectedResponse = new SellerResponseDTO(null, null);
-//        when(sellerService.getSeller(filterRequest)).thenReturn(expectedResponse);
 
         ResponseEntity<SellerResponseDTO> responseEntity = sellerController.getSellers("sellerName",
             Collections.singletonList("prodId"), Collections.singletonList("marketId"), 1, 10, "asc");

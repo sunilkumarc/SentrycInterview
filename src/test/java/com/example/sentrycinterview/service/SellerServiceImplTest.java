@@ -1,37 +1,24 @@
 package com.example.sentrycinterview.service;
 
 import com.example.sentrycinterview.dto.FilterRequest;
-import com.example.sentrycinterview.dto.MetaDTO;
-import com.example.sentrycinterview.dto.ProducerSellerStateDTO;
-import com.example.sentrycinterview.dto.SellerDTO;
 import com.example.sentrycinterview.dto.SellerResponseDTO;
-import com.example.sentrycinterview.enums.SellerSortBy;
-import com.example.sentrycinterview.models.Marketplace;
-import com.example.sentrycinterview.models.Seller;
 import com.example.sentrycinterview.models.SellerInfo;
 import com.example.sentrycinterview.repository.SellerInfoRepository;
 import com.example.sentrycinterview.repository.SellerInfoSpecification;
 import com.example.sentrycinterview.repository.SellerRepository;
-import com.example.sentrycinterview.repository.SellerSpecification;
-import com.example.sentrycinterview.service.SellerServiceImpl;
 import java.util.ArrayList;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
