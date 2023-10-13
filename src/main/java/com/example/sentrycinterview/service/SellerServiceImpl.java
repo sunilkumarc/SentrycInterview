@@ -47,8 +47,7 @@ public class SellerServiceImpl implements SellerService {
             Sort.by(sellerSortBy.getDirection(), sellerSortBy.getFieldName()));
 
         // SellerInfoSpecification provides a way for dynamic filtering
-        // In the future we can add more filters by just adding more filters
-        // inside filterSellerInfos method
+        // In the future we can add more filters without updating this logic
         Page<SellerInfo> sellerInfos = sellerInfoRepository.findAll(
             SellerInfoSpecification.filterSellerInfos(filterRequest.getSellerName(),
                 filterRequest.getMarketplaceIds()),
@@ -56,8 +55,8 @@ public class SellerServiceImpl implements SellerService {
         );
 
         List<SellerDTO> sellerDTOs;
-        boolean sellerInfosEmpty = sellerInfos != null ? sellerInfos.getTotalElements() == 0 : true;
-        if (!sellerInfosEmpty) {
+        boolean isSellerInfosEmpty = !(sellerInfos != null) || sellerInfos.getTotalElements() == 0;
+        if (!isSellerInfosEmpty) {
             sellerDTOs = sellerInfos.stream()
                 .map(sellerInfo -> convertToSellerDTO(sellerInfo, filterRequest.getProducerIds()))
                 .collect(Collectors.toList());
@@ -66,9 +65,9 @@ public class SellerServiceImpl implements SellerService {
         }
 
         MetaDTO meta = new MetaDTO(
-            !sellerInfosEmpty ? sellerInfos.getNumber() + 1 : 1,
-            !sellerInfosEmpty ? sellerInfos.getSize() : 0,
-            !sellerInfosEmpty ? (int) sellerInfos.getTotalElements() : 0
+            !isSellerInfosEmpty ? sellerInfos.getNumber() + 1 : 1,
+            !isSellerInfosEmpty ? sellerInfos.getSize() : 0,
+            !isSellerInfosEmpty ? (int) sellerInfos.getTotalElements() : 0
         );
 
         return new SellerResponseDTO(meta, sellerDTOs);

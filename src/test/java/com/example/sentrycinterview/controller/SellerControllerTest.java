@@ -2,9 +2,7 @@ package com.example.sentrycinterview.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
 
-import com.example.sentrycinterview.dto.FilterRequest;
 import com.example.sentrycinterview.dto.SellerResponseDTO;
 import com.example.sentrycinterview.exceptions.BadRequestException;
 import com.example.sentrycinterview.service.SellerService;
