@@ -16,8 +16,8 @@ public class SellerInfoSpecification {
             List<Predicate> predicates = new ArrayList<>();
 
             if (sellerInfoName != null) {
-                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")),
-                    "%" + sellerInfoName.toLowerCase() + "%"));
+                predicates.add(criteriaBuilder.equal(criteriaBuilder.lower(root.get("name")),
+                    sellerInfoName.toLowerCase()));
             }
 
             if (marketPlaceIds != null && !marketPlaceIds.isEmpty()) {
